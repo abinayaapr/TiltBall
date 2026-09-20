@@ -1,0 +1,272 @@
+<title>Tilt Ball Privacy Policy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+
+<style>
+  :root {
+    --ground:   #eceef1;
+    --paper:    #ffffff;
+    --sunk:     #f4f5f7;
+    --line:     #dcdfe4;
+    --line-soft:#e8eaee;
+    --ink:      #1a1d23;
+    --ink-soft: #565d69;
+    --ink-faint:#868d99;
+    --accent:   #2c5d7c;
+    --accent-soft: #e5edf3;
+    --flag:     #8a5a00;
+    --flag-soft:#fbf0d8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #14171c;
+      --paper:    #1b1f26;
+      --sunk:     #171b21;
+      --line:     #2c323b;
+      --line-soft:#242931;
+      --ink:      #e8eaee;
+      --ink-soft: #a3abb8;
+      --ink-faint:#767f8c;
+      --accent:   #7fb3d5;
+      --accent-soft: #1f2c36;
+      --flag:     #e0b45f;
+      --flag-soft:#302713;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #14171c;
+    --paper:    #1b1f26;
+    --sunk:     #171b21;
+    --line:     #2c323b;
+    --line-soft:#242931;
+    --ink:      #e8eaee;
+    --ink-soft: #a3abb8;
+    --ink-faint:#767f8c;
+    --accent:   #7fb3d5;
+    --accent-soft: #1f2c36;
+    --flag:     #e0b45f;
+    --flag-soft:#302713;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 1.02rem; line-height: 1.66;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet {
+    max-width: 44rem; margin-inline: auto; background: var(--paper);
+    border: 1px solid var(--line); border-radius: 3px;
+  }
+  .wrap { padding-inline: 16px; padding-block: 28px 56px; }
+  .inner { padding-inline: clamp(18px, 5vw, 54px); padding-block: clamp(28px, 5vw, 48px) 44px; }
+
+  .sans { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
+
+  .doc-kicker {
+    font-family: "Source Sans 3", sans-serif; font-size: .74rem; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px;
+  }
+  h1 {
+    font-weight: 700; font-size: clamp(1.9rem, 6vw, 2.7rem); line-height: 1.12;
+    letter-spacing: -.015em; margin: 0 0 12px; text-wrap: balance;
+  }
+  .lede { margin: 0; color: var(--ink-soft); font-size: 1.08rem; }
+
+  .meta {
+    font-family: "Source Sans 3", sans-serif; font-size: .82rem; color: var(--ink-faint);
+    border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);
+    margin: 26px 0 30px; padding: 12px 0; display: flex; flex-wrap: wrap; gap: 6px 26px;
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  .applies {
+    background: var(--sunk); border: 1px solid var(--line-soft); border-radius: 3px;
+    padding: 14px 16px; margin-bottom: 30px;
+  }
+  .applies h2 {
+    font-family: "Source Sans 3", sans-serif; font-size: .74rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 8px;
+  }
+  .applies ul { margin: 0; padding-left: 1.1rem; }
+  .applies li { margin-bottom: 3px; font-size: .96rem; }
+  .applies li:last-child { margin-bottom: 0; }
+
+  section { margin-bottom: 28px; }
+  section h2 {
+    font-weight: 600; font-size: 1.24rem; line-height: 1.3; letter-spacing: -.008em;
+    margin: 0 0 9px; text-wrap: balance;
+  }
+  section h2 .n {
+    font-family: "Source Sans 3", sans-serif; font-size: .82rem; font-weight: 700;
+    color: var(--accent); margin-right: .55em; vertical-align: .08em;
+  }
+  section h3 {
+    font-family: "Source Sans 3", sans-serif; font-weight: 700; font-size: .84rem;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint);
+    margin: 16px 0 5px;
+  }
+  p { margin: 0 0 11px; }
+  p:last-child { margin-bottom: 0; }
+  ul.plain { margin: 0 0 11px; padding-left: 1.15rem; }
+  ul.plain li { margin-bottom: 5px; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  .fill {
+    background: var(--flag-soft); color: var(--flag); border: 1px dashed currentColor;
+    border-radius: 2px; padding: 0 5px; font-family: "Source Sans 3", sans-serif;
+    font-size: .84em; font-weight: 600; white-space: nowrap;
+  }
+
+  .note {
+    background: var(--accent-soft); border-radius: 3px; padding: 13px 15px;
+    font-family: "Source Sans 3", sans-serif; font-size: .92rem; color: var(--ink-soft);
+    margin: 0 0 30px;
+  }
+  .note b { color: var(--ink); }
+
+  table { width: 100%; border-collapse: collapse; font-family: "Source Sans 3", sans-serif; font-size: .92rem; }
+  .scroll { overflow-x: auto; margin: 0 0 11px; }
+  th, td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-weight: 700; font-size: .76rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-faint); }
+  td:first-child, th:first-child { padding-right: 18px; white-space: nowrap; }
+
+  footer {
+    font-family: "Source Sans 3", sans-serif; font-size: .84rem; color: var(--ink-faint);
+    border-top: 1px solid var(--line); margin-top: 34px; padding-top: 16px;
+  }
+</style>
+
+<div class="wrap">
+<div class="sheet"><div class="inner">
+
+  <p class="doc-kicker">Tilt Ball · Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="lede">Tilt Ball is a game that runs on your device. It has no accounts and no servers of our own. This policy explains the few places information does leave the device, and how to stop it.</p>
+
+  <div class="meta">
+    <span><b>Last updated</b> 20 September 2026</span>
+    <span><b>Effective</b> <span class="fill">first release date</span></span>
+    <span><b>Publisher</b> <span class="fill">registered developer name</span></span>
+  </div>
+
+  <div class="applies">
+    <h2>What this covers</h2>
+    <ul>
+      <li>Tilt Ball for iPhone, distributed on the App Store (bundle <span class="sans">com.abi.TiltBall</span>)</li>
+      <li>Tilt Ball: Maze Labyrinth for Android, distributed on Google Play (package <span class="sans">com.abi.tiltball</span>)</li>
+    </ul>
+  </div>
+
+  <p class="note"><b>The short version.</b> Your progress never leaves your device except through your own platform backup. We run no servers, ask for no account, and collect nothing ourselves. Advertising is the one part that involves another company: Google serves the ads and receives the data described in section 4. Buying the ad-free upgrade removes that entirely.</p>
+
+  <section>
+    <h2><span class="n">1</span>Who we are</h2>
+    <p>Tilt Ball is published by <span class="fill">registered developer name</span>, contactable at <a href="mailto:pranavabipranav@gmail.com">pranavabipranav@gmail.com</a>. For privacy questions, write to that address and say which platform you play on; it helps us answer accurately, because the two versions differ in one respect described below.</p>
+    <p>We are the data controller for the limited processing described here. Where Google acts as an independent controller of advertising data, its own policy governs that use.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>What stays on your device</h2>
+    <p>Everything the game knows about you is written to your device's own local storage and nowhere else:</p>
+    <ul class="plain">
+      <li>Levels completed, stars, best times and hard-mode clears</li>
+      <li>Coins, unlocked ball skins and board themes</li>
+      <li>Daily and weekly challenge streaks</li>
+      <li>Settings, including sound, haptics, board style and your tilt calibration</li>
+      <li>A short recording of your best run on each level, used to race your own ghost</li>
+    </ul>
+    <p>None of it is transmitted to us, because there is nowhere to transmit it to. Deleting the app deletes all of it.</p>
+    <h3>One exception: platform backups</h3>
+    <p>If you have your device's own backup switched on, this local data may be copied to your iCloud or Google account as part of the device backup, and restored when you set up a new phone. That copy is held by Apple or Google under their terms, not ours, and we cannot read it.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Motion sensors</h2>
+    <p>The game reads your accelerometer and gyroscope to tilt the board. Those readings are processed frame by frame in memory and are never recorded, stored or sent anywhere. The only thing kept is the single neutral position you set when you calibrate, which is a pair of numbers describing how you like to hold the phone.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>Advertising</h2>
+    <p>Tilt Ball shows ads supplied by Google AdMob: a banner on some screens, an optional rewarded video you choose to watch for an extra life or coins, and an occasional full-screen ad when you return to the game. To do this, Google's advertising software receives information from your device and may use it to select, measure and, where you have permitted it, personalise ads.</p>
+    <p>What Google receives typically includes your IP address, an approximate location derived from it, information about your device and the app, and how you interacted with an ad. Google's use of that information is governed by the <a href="https://policies.google.com/privacy" rel="noopener">Google Privacy Policy</a> and its <a href="https://support.google.com/admob/answer/6128543" rel="noopener">partner policies</a>.</p>
+
+    <h3>The two platforms differ here</h3>
+    <div class="scroll">
+      <table>
+        <tr><th>Android</th><td>The app uses the Android advertising ID, a resettable identifier Google provides for advertising. You can reset it or delete it entirely in <b>Settings → Google → Ads</b>, and deleting it stops personalised advertising.</td></tr>
+        <tr><th>iPhone</th><td>The app does not ask for permission to track you and does not access the identifier for advertisers. You will see no App Tracking Transparency prompt, and ads are correspondingly less personalised.</td></tr>
+      </table>
+    </div>
+
+    <h3>Consent in Europe and the UK</h3>
+    <p>If you are in the European Economic Area, the United Kingdom or Switzerland, the app shows a consent form from Google's User Messaging Platform before personalised advertising runs, and records your choice. You can change that choice at any time from <b>Settings → Privacy options</b> inside the app.</p>
+
+    <h3>Turning ads off completely</h3>
+    <p>The in-app upgrade removes every ad permanently on the device it was bought on. Once it is active, no ad requests are made at all.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>Playing against someone nearby</h2>
+    <p>Two Player connects your phone directly to another phone in the same room, over Wi-Fi or Bluetooth, using Apple's MultipeerConnectivity on iPhone and Google's Nearby Connections on Android. No server sits in between and we never see that a race happened.</p>
+    <p>While you are looking for a player, your device's name is visible to other Tilt Ball players nearby, so pick a device name you are comfortable showing. During a race the two phones exchange only the ball's position and game events such as stars, lives and the result. Nothing is stored when the race ends.</p>
+    <p>Android requires nearby-device permissions for this. The app asks for them only when you open Two Player, and the Bluetooth scan is declared as never being used to derive your location.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>Purchases</h2>
+    <p>The ad-free upgrade is sold and processed by Apple on the App Store and by Google on Google Play. Your payment details go to them and never reach us or the app. We receive only a confirmation that the purchase exists, which the app uses to switch ads off. Restoring purchases asks the same store the same question.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">7</span>Achievements and leaderboards</h2>
+    <p>Where the game offers Game Center on iPhone or Play Games Services on Android, signing in is entirely optional and is handled by Apple or Google. If you sign in, the app sends the totals behind achievements and leaderboards, such as levels cleared and stars collected, to that service under your gamer profile. If you do not sign in, nothing is sent and the game is unaffected.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">8</span>Analytics and crash reports</h2>
+    <p>We include no analytics software of our own and no third-party analytics beyond the advertising described above. Apple and Google may share anonymised, aggregated crash and performance reports with us if you have opted into sharing them in your device settings. Those reports identify the app, not you.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">9</span>Children</h2>
+    <p>Tilt Ball is suitable for all ages. We do not knowingly collect personal information from children, and we have no account system through which a child could provide any. If you believe a child's information has reached us, write to the address above and we will act on it.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">10</span>Your choices</h2>
+    <ul class="plain">
+      <li><b>Erase your progress</b> — Settings → Reset progress, inside the app.</li>
+      <li><b>Erase everything</b> — delete the app. Local data goes with it; remember a platform backup may still hold a copy.</li>
+      <li><b>Change your advertising choice</b> — Settings → Privacy options in the app, where that form applies to you.</li>
+      <li><b>Limit ad personalisation</b> — Android: Settings → Google → Ads. iPhone: Settings → Privacy &amp; Security → Apple Advertising.</li>
+      <li><b>Withdraw sensor or nearby-device permissions</b> — your device's own app settings.</li>
+    </ul>
+    <p>Depending on where you live, you may have rights to access, correct, delete or port personal data, or to object to its processing. Because we hold no personal data about you on any system of ours, most such requests are answered by the controls above. For anything held by Google in connection with advertising, exercise those rights with Google directly using its privacy tools, or write to us and we will point you to the right place.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">11</span>Retention</h2>
+    <p>We retain nothing, because we store nothing. Data on your device lasts until you erase it or remove the app. Advertising data held by Google is retained under Google's own schedule.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">12</span>Changes to this policy</h2>
+    <p>If this policy changes, the revised version is published here and the date at the top changes with it. Material changes will also be noted in the release notes of the update that introduces them. Continuing to play after a change means you accept the revised policy.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">13</span>Contact</h2>
+    <p>Questions, requests or complaints about privacy: <a href="mailto:pranavabipranav@gmail.com">pranavabipranav@gmail.com</a>. If you are in the EEA or the UK and are not satisfied with our response, you may complain to your national data protection authority.</p>
+  </section>
+
+  <footer>
+    Tilt Ball Privacy Policy · Last updated 20 September 2026 · Applies to the iPhone and Android versions of the game.
+  </footer>
+
+</div></div>
+</div>

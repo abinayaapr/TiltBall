@@ -1,0 +1,260 @@
+<title>Tilt Ball Terms of Use</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+
+<style>
+  :root {
+    --ground:   #eceef1;
+    --paper:    #ffffff;
+    --sunk:     #f4f5f7;
+    --line:     #dcdfe4;
+    --line-soft:#e8eaee;
+    --ink:      #1a1d23;
+    --ink-soft: #565d69;
+    --ink-faint:#868d99;
+    --accent:   #2c5d7c;
+    --accent-soft: #e5edf3;
+    --flag:     #8a5a00;
+    --flag-soft:#fbf0d8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #14171c;
+      --paper:    #1b1f26;
+      --sunk:     #171b21;
+      --line:     #2c323b;
+      --line-soft:#242931;
+      --ink:      #e8eaee;
+      --ink-soft: #a3abb8;
+      --ink-faint:#767f8c;
+      --accent:   #7fb3d5;
+      --accent-soft: #1f2c36;
+      --flag:     #e0b45f;
+      --flag-soft:#302713;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #14171c;
+    --paper:    #1b1f26;
+    --sunk:     #171b21;
+    --line:     #2c323b;
+    --line-soft:#242931;
+    --ink:      #e8eaee;
+    --ink-soft: #a3abb8;
+    --ink-faint:#767f8c;
+    --accent:   #7fb3d5;
+    --accent-soft: #1f2c36;
+    --flag:     #e0b45f;
+    --flag-soft:#302713;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 1.02rem; line-height: 1.66;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet {
+    max-width: 44rem; margin-inline: auto; background: var(--paper);
+    border: 1px solid var(--line); border-radius: 3px;
+  }
+  .wrap { padding-inline: 16px; padding-block: 28px 56px; }
+  .inner { padding-inline: clamp(18px, 5vw, 54px); padding-block: clamp(28px, 5vw, 48px) 44px; }
+
+  .sans { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
+
+  .doc-kicker {
+    font-family: "Source Sans 3", sans-serif; font-size: .74rem; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px;
+  }
+  h1 {
+    font-weight: 700; font-size: clamp(1.9rem, 6vw, 2.7rem); line-height: 1.12;
+    letter-spacing: -.015em; margin: 0 0 12px; text-wrap: balance;
+  }
+  .lede { margin: 0; color: var(--ink-soft); font-size: 1.08rem; }
+
+  .meta {
+    font-family: "Source Sans 3", sans-serif; font-size: .82rem; color: var(--ink-faint);
+    border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);
+    margin: 26px 0 30px; padding: 12px 0; display: flex; flex-wrap: wrap; gap: 6px 26px;
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  .applies {
+    background: var(--sunk); border: 1px solid var(--line-soft); border-radius: 3px;
+    padding: 14px 16px; margin-bottom: 30px;
+  }
+  .applies h2 {
+    font-family: "Source Sans 3", sans-serif; font-size: .74rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 8px;
+  }
+  .applies ul { margin: 0; padding-left: 1.1rem; }
+  .applies li { margin-bottom: 3px; font-size: .96rem; }
+  .applies li:last-child { margin-bottom: 0; }
+
+  section { margin-bottom: 28px; }
+  section h2 {
+    font-weight: 600; font-size: 1.24rem; line-height: 1.3; letter-spacing: -.008em;
+    margin: 0 0 9px; text-wrap: balance;
+  }
+  section h2 .n {
+    font-family: "Source Sans 3", sans-serif; font-size: .82rem; font-weight: 700;
+    color: var(--accent); margin-right: .55em; vertical-align: .08em;
+  }
+  section h3 {
+    font-family: "Source Sans 3", sans-serif; font-weight: 700; font-size: .84rem;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint);
+    margin: 16px 0 5px;
+  }
+  p { margin: 0 0 11px; }
+  p:last-child { margin-bottom: 0; }
+  ul.plain { margin: 0 0 11px; padding-left: 1.15rem; }
+  ul.plain li { margin-bottom: 5px; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  .fill {
+    background: var(--flag-soft); color: var(--flag); border: 1px dashed currentColor;
+    border-radius: 2px; padding: 0 5px; font-family: "Source Sans 3", sans-serif;
+    font-size: .84em; font-weight: 600; white-space: nowrap;
+  }
+
+  .note {
+    background: var(--accent-soft); border-radius: 3px; padding: 13px 15px;
+    font-family: "Source Sans 3", sans-serif; font-size: .92rem; color: var(--ink-soft);
+    margin: 0 0 30px;
+  }
+  .note b { color: var(--ink); }
+
+  table { width: 100%; border-collapse: collapse; font-family: "Source Sans 3", sans-serif; font-size: .92rem; }
+  .scroll { overflow-x: auto; margin: 0 0 11px; }
+  th, td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-weight: 700; font-size: .76rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-faint); }
+  td:first-child, th:first-child { padding-right: 18px; white-space: nowrap; }
+
+  footer {
+    font-family: "Source Sans 3", sans-serif; font-size: .84rem; color: var(--ink-faint);
+    border-top: 1px solid var(--line); margin-top: 34px; padding-top: 16px;
+  }
+</style>
+
+<div class="wrap">
+<div class="sheet"><div class="inner">
+
+  <p class="doc-kicker">Tilt Ball &middot; Legal</p>
+  <h1>Terms of Use</h1>
+  <p class="lede">The agreement between you and us about playing Tilt Ball. It is short, and written to be read rather than skimmed.</p>
+
+  <div class="meta">
+    <span><b>Last updated</b> 20 September 2026</span>
+    <span><b>Effective</b> <span class="fill">first release date</span></span>
+    <span><b>Publisher</b> <span class="fill">registered developer name</span></span>
+  </div>
+
+  <div class="applies">
+    <h2>What this covers</h2>
+    <ul>
+      <li>Tilt Ball for iPhone, distributed on the App Store (bundle <span class="sans">com.abi.TiltBall</span>)</li>
+      <li>Tilt Ball: Maze Labyrinth for Android, distributed on Google Play (package <span class="sans">com.abi.tiltball</span>)</li>
+    </ul>
+  </div>
+
+  <p class="note"><b>The short version.</b> Play the game, keep it to yourself and your own devices, and do not tamper with it. Purchases are handled by Apple or Google, so refunds come from them. Coins and skins are parts of a game, not money. Tilt responsibly.</p>
+
+  <section>
+    <h2><span class="n">1</span>Accepting these terms</h2>
+    <p>By downloading, installing or playing Tilt Ball you agree to these terms. If you do not agree, do not install the game, or remove it if you already have. If you are under the age at which you can agree to a contract where you live, please read these terms with a parent or guardian.</p>
+    <p>Your use of the game is also subject to the rules of the store you installed it from: Apple&rsquo;s Licensed Application End User Licence Agreement on the App Store, and the Google Play Terms of Service on Google Play. Where those store rules conflict with these terms, the store rules win for anything they cover.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>Your licence to play</h2>
+    <p>We grant you a personal, non-exclusive, non-transferable, revocable licence to install and play Tilt Ball on devices you own or control, for your own private entertainment. That is the whole of what you get; we keep everything else.</p>
+    <p>You may not sell, rent, sublicense or redistribute the game; reverse engineer, decompile or modify it, except to the extent the law expressly permits despite this restriction; strip out or alter any notices in it; or use it commercially, including in a paid venue or as part of another product.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Purchases</h2>
+    <p>The game offers an optional upgrade that removes advertising. Apple sells it on the App Store and Google sells it on Google Play. Payment, tax and receipts are entirely theirs; we never see your payment details.</p>
+    <p>A purchase is tied to the store account that made it, not to the game, so it can be restored on your other devices signed in to that same account. A purchase on one platform does not carry across to the other, because they are separate stores with separate accounts.</p>
+    <h3>Refunds</h3>
+    <p>Refunds are granted by Apple or Google under their published policies, and we cannot issue them ourselves. Ask the store you bought from. Where you have a statutory right of withdrawal, that right is unaffected by anything here.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>Coins, skins and other in-game items</h2>
+    <p>Coins, ball skins, board themes, stars and streaks exist only inside the game. They have no monetary value, are not your property, and cannot be sold, transferred, exchanged or redeemed for anything outside the game. They may be adjusted, rebalanced or removed in an update, and they disappear if you delete the game and have no backup.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>Fair play</h2>
+    <p>Two Player races work because both phones report their own progress honestly. Do not modify the game, feed it false data, or interfere with another player&rsquo;s device or connection. Do not use the game to harass anyone or to send anything unlawful to a nearby device. Your device name is visible to nearby players while you look for an opponent, so choose one you are happy to show.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>Health and safety</h2>
+    <p>Tilt Ball is played by physically tilting your phone, which means you move while you play. Please:</p>
+    <ul class="plain">
+      <li>Play somewhere safe, seated where you can, and never while walking, driving or cycling.</li>
+      <li>Hold the device securely; a strap or case helps.</li>
+      <li>Stop if you feel dizzy, nauseous, or any discomfort in your hands, wrists or eyes, and rest.</li>
+    </ul>
+    <p>A small number of people may experience seizures when exposed to flashing lights or patterns. If that applies to you or your family, consult a doctor before playing. Stop immediately and seek advice if you experience altered vision, disorientation, involuntary movement or loss of awareness.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">7</span>Advertising</h2>
+    <p>Unless you have bought the ad-free upgrade, the game shows advertising supplied by Google. We do not choose, endorse or vouch for individual ads or the products in them, and any dealing you have with an advertiser is between you and them. What data advertising involves is set out in the <a href="#" rel="noopener">Privacy Policy</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">8</span>Changes to the game</h2>
+    <p>We may add, change or remove levels, features, rewards and balance in updates, and we may stop publishing or supporting the game altogether. We will not do that capriciously, but a game is not a permanent installation and you should not treat it as one. Where a change removes something you paid for, we will say so in the release notes.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">9</span>Our intellectual property</h2>
+    <p>The Tilt Ball name, the artwork, the level designs, the sounds and the code are owned by us or our licensors and are protected by copyright and other laws. Nothing in these terms transfers any of it to you. You are welcome to record and share your own gameplay, including on video platforms and with monetisation, provided you do not present the game as your own work or imply that we endorse you.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">10</span>Disclaimer</h2>
+    <p>The game is provided as it is and as available. To the fullest extent the law allows, we make no warranties of any kind about it, express or implied, including any implied warranty of merchantability, fitness for a particular purpose or non-infringement. We do not promise that the game will be uninterrupted, error-free, or compatible with every device or future operating system.</p>
+    <p>Nothing here excludes any warranty or right that cannot be excluded under the law where you live. Consumers have statutory rights that these terms do not affect.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">11</span>Limitation of liability</h2>
+    <p>To the fullest extent the law allows, we are not liable for indirect, incidental, special or consequential loss, for lost data or lost progress, or for loss of profit or opportunity, arising out of your use of the game. Where liability cannot be excluded, it is limited to the amount you paid us for the game in the twelve months before the claim, which for most players is nothing.</p>
+    <p>We do not exclude liability for death or personal injury caused by negligence, for fraud, or for anything else that cannot lawfully be excluded.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">12</span>Apple and Google</h2>
+    <p>Apple and Google are not parties to these terms and have no responsibility for the game. They are, however, entitled to enforce these terms against you as third-party beneficiaries. Any claim about the game &mdash; that it fails to conform, infringes someone&rsquo;s rights, or breaches consumer law &mdash; is ours to answer, not theirs. Support is provided by us at the address below, not by the store.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">13</span>Ending this licence</h2>
+    <p>You may end it at any time by deleting the game. We may end it if you materially breach these terms, in which case you must stop using the game and delete it. Sections that by their nature should survive &mdash; intellectual property, disclaimers, limitation of liability and governing law &mdash; do.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">14</span>Governing law</h2>
+    <p>These terms are governed by the laws of <span class="fill">country or state</span>, and the courts of <span class="fill">country or state</span> have non-exclusive jurisdiction. If you are a consumer, you keep the protection of the mandatory laws of the country you live in, and you may bring proceedings there.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">15</span>Contact</h2>
+    <p>Questions about these terms, or about the game: <a href="mailto:pranavabipranav@gmail.com">pranavabipranav@gmail.com</a>.</p>
+  </section>
+
+  <footer>
+    Tilt Ball Terms of Use &middot; Last updated 20 September 2026 &middot; Applies to the iPhone and Android versions of the game.
+  </footer>
+
+</div></div>
+</div>
