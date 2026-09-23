@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tilt Ball — tilt your phone, roll the ball, find the hole. 310 levels, fully offline.">
+  <style>
+    /* Standalone reset. Artifacts get this from their host; a hosted file must carry its own. */
+    :root { color-scheme: light dark; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+    body { margin: 0; }
+    img { max-width: 100%; }
+    [hidden] { display: none !important; }
+  </style>
+<title>Tilt Ball</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+
+<style>
+  :root {
+    --sky-top:   #6badf7;
+    --sky-bot:   #2e6bd9;
+    --board:     #f7fafc;
+    --board-2:   #e9eef5;
+    --ink:       #17233a;
+    --ink-soft:  #55637d;
+    --ink-faint: #8794ad;
+    --goal:      #36d47a;
+    --goal-deep: #12351f;
+    --gold:      #ffcc40;
+    --card:      #ffffff;
+    --card-line: #dfe6f0;
+    --on-sky:    #ffffff;
+    --on-sky-soft: rgba(255,255,255,.82);
+    --wall:      #c3ccd9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --sky-top:   #1b2440;
+      --sky-bot:   #0c1020;
+      --board:     #1a1d2e;
+      --board-2:   #141726;
+      --ink:       #e9edf6;
+      --ink-soft:  #a3adc4;
+      --ink-faint: #737e96;
+      --goal:      #3ddd83;
+      --gold:      #ffd45e;
+      --card:      #191d2d;
+      --card-line: #2b3148;
+      --on-sky:    #f2f5fb;
+      --on-sky-soft: rgba(242,245,251,.76);
+      --wall:      #39405a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --sky-top:   #1b2440;
+    --sky-bot:   #0c1020;
+    --board:     #1a1d2e;
+    --board-2:   #141726;
+    --ink:       #e9edf6;
+    --ink-soft:  #a3adc4;
+    --ink-faint: #737e96;
+    --goal:      #3ddd83;
+    --gold:      #ffd45e;
+    --card:      #191d2d;
+    --card-line: #2b3148;
+    --on-sky:    #f2f5fb;
+    --on-sky-soft: rgba(242,245,251,.76);
+    --wall:      #39405a;
+  }
+
+  body {
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bot) 62%, var(--sky-bot) 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Nunito Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 62rem; margin-inline: auto; padding-inline: 16px; padding-block: 40px 64px; }
+  h1, h2, h3, .display { font-family: Fredoka, "Nunito Sans", sans-serif; }
+
+  /* ---------- hero ---------- */
+  .hero { text-align: center; margin-bottom: 46px; }
+  .hero h1 {
+    font-weight: 700; font-size: clamp(2.6rem, 11vw, 5rem); line-height: .98;
+    letter-spacing: -.02em; margin: 0 0 10px; color: var(--on-sky);
+    text-shadow: 0 3px 0 rgba(23,35,58,.22), 0 12px 30px rgba(23,35,58,.22);
+  }
+  .hero .tagline {
+    font-size: clamp(1.02rem, 3.4vw, 1.3rem); font-weight: 600; color: var(--on-sky);
+    margin: 0 0 6px;
+  }
+  .hero .sub { color: var(--on-sky-soft); margin: 0 auto; max-width: 34rem; font-size: 1rem; }
+
+  /* ---------- the playable board ---------- */
+  .stage { perspective: 900px; margin: 30px auto 26px; max-width: 30rem; }
+  .board {
+    position: relative; width: 100%; aspect-ratio: 1 / 1; max-width: 100%;
+    background: var(--board); border-radius: 22px;
+    border: 7px solid var(--wall);
+    box-shadow: 0 26px 46px rgba(12,20,40,.32), inset 0 0 0 1px rgba(255,255,255,.5);
+    transform-style: preserve-3d; transition: transform .12s ease-out;
+    touch-action: none; cursor: crosshair;
+  }
+  .pip { position: absolute; transform: translate(-50%, -50%); pointer-events: none; }
+  .star { width: 7%; aspect-ratio: 1; transition: opacity .2s, transform .2s; }
+  .star svg { width: 100%; height: 100%; display: block; }
+  .star.taken { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+  .hole {
+    width: 15%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 50% 42%, var(--goal-deep), #0a1a10 72%);
+    box-shadow: 0 0 0 4px var(--goal), 0 0 22px 7px color-mix(in srgb, var(--goal) 55%, transparent);
+    opacity: 0; transform: translate(-50%, -50%) scale(.25); transition: opacity .3s, transform .34s cubic-bezier(.2,1.5,.4,1);
+  }
+  .hole.open { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .ball {
+    width: 11%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #fdfefe 4%, #c9d2dd 46%, #7b8798 78%, #4a5364 100%);
+    box-shadow: 0 5px 12px rgba(12,20,40,.34);
+    transition: opacity .25s, transform .25s;
+  }
+  .ball.sunk { opacity: 0; transform: translate(-50%, -50%) scale(.3); }
+  .hint {
+    margin: 0; text-align: center; color: var(--on-sky-soft);
+    font-size: .92rem; font-weight: 600;
+  }
+
+  /* ---------- availability ---------- */
+  .stores {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin: 26px 0 0;
+  }
+  .store {
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.34);
+    color: var(--on-sky); border-radius: 12px; padding: 9px 16px;
+    font-weight: 700; font-size: .92rem; display: flex; gap: 8px; align-items: baseline;
+  }
+  .store small { font-weight: 600; opacity: .75; font-size: .78rem; }
+
+  /* ---------- numbers ---------- */
+  .numbers {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 12px; margin: 34px 0 44px;
+  }
+  .num {
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28);
+    border-radius: 14px; padding: 16px 14px; text-align: center; color: var(--on-sky);
+  }
+  .num b { display: block; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 1.9rem; line-height: 1.1; }
+  .num span { font-size: .84rem; font-weight: 600; opacity: .82; }
+
+  /* ---------- cards ---------- */
+  section { margin-bottom: 42px; }
+  .section-head { text-align: center; margin-bottom: 20px; }
+  .section-head h2 {
+    color: var(--on-sky); font-weight: 600; font-size: clamp(1.5rem, 5vw, 2.1rem);
+    margin: 0 0 6px; letter-spacing: -.01em; text-wrap: balance;
+  }
+  .section-head p { color: var(--on-sky-soft); margin: 0 auto; max-width: 40rem; }
+
+  .grid { display: grid; gap: 14px; }
+  .grid.three { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .grid.two { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--card-line); border-radius: 16px;
+    padding: 20px 20px 22px;
+  }
+  .card h3 {
+    font-weight: 600; font-size: 1.16rem; margin: 0 0 4px; color: var(--ink);
+  }
+  .card .kicker {
+    font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 0 0 8px;
+  }
+  .card p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+  .card ul { margin: 10px 0 0; padding-left: 1.05rem; color: var(--ink-soft); font-size: .93rem; }
+  .card li { margin-bottom: 4px; }
+  .card li:last-child { margin-bottom: 0; }
+  .card .tag {
+    display: inline-block; margin-top: 12px; font-size: .78rem; font-weight: 700;
+    color: var(--ink); background: var(--board-2); border-radius: 7px; padding: 3px 9px;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 1px solid rgba(255,255,255,.26); padding-top: 22px; margin-top: 8px;
+    color: var(--on-sky-soft); font-size: .9rem; text-align: center;
+  }
+  footer a { color: var(--on-sky); font-weight: 600; text-underline-offset: 3px; }
+  footer a:focus-visible { outline: 2px solid var(--on-sky); outline-offset: 3px; border-radius: 3px; }
+  footer .links { display: flex; gap: 8px 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .board, .ball, .hole, .star { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Tilt Ball</h1>
+    <p class="tagline">Tilt to roll. Find the hole.</p>
+    <p class="sub">A ball, a board, and a hole that only opens once you have collected every star. Three hundred and ten of them, in your pocket, with no connection needed.</p>
+
+    <div class="stage">
+      <div class="board" id="board" aria-label="A miniature Tilt Ball board. Move your pointer to tilt it, collect the three stars, and the hole opens." role="img">
+        <div class="pip star" id="s0" style="left:24%; top:70%"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffcc40" stroke="#e0a800" stroke-width="1.2" stroke-linejoin="round" d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></svg></div>
+        <div class="pip star" id="s1" style="left:50%; top:50%"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffcc40" stroke="#e0a800" stroke-width="1.2" stroke-linejoin="round" d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></svg></div>
+        <div class="pip star" id="s2" style="left:76%; top:30%"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffcc40" stroke="#e0a800" stroke-width="1.2" stroke-linejoin="round" d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></svg></div>
+        <div class="pip hole" id="hole" style="left:84%; top:16%"></div>
+        <div class="pip ball" id="ball" style="left:16%; top:84%"></div>
+      </div>
+    </div>
+    <p class="hint" id="hint">Move your pointer across the board to tilt it.</p>
+
+    <div class="stores">
+      <span class="store">Google Play <small>coming soon</small></span>
+      <span class="store">App Store <small>coming soon</small></span>
+    </div>
+  </header>
+
+  <div class="numbers">
+    <div class="num"><b>310</b><span>hand-checked levels</span></div>
+    <div class="num"><b>3</b><span>ways to play</span></div>
+    <div class="num"><b>21</b><span>balls to earn</span></div>
+    <div class="num"><b>0</b><span>servers, accounts, logins</span></div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2>Three kinds of board</h2>
+      <p>Each one asks something different of the same simple control: tilt, and let physics do the rest.</p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <p class="kicker">110 levels · 11 chapters</p>
+        <h3>Classic</h3>
+        <p>Hand-placed obstacle courses that teach you as you go: single walls, then sliding blocks, spinning windmills, one-way gates, bumpers, ice and teleport pads.</p>
+        <span class="tag">Starts gentle, ends unkind</span>
+      </article>
+      <article class="card">
+        <p class="kicker">100 levels</p>
+        <h3>Maze</h3>
+        <p>Every maze is generated and solvable, from a roomy 5×5 up to a tight 11×11, cut into eight silhouettes — square, diamond, cross, ring, circle, triangle, hexagon, hourglass.</p>
+        <span class="tag">The later ones bite</span>
+      </article>
+      <article class="card">
+        <p class="kicker">100 levels</p>
+        <h3>Explore</h3>
+        <p>Open fields several screens wide and tall. The camera follows your ball and the rest of the board is yours to find, stars and hole included.</p>
+        <span class="tag">Room to get lost</span>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Something new every day</h2>
+      <p>Fresh boards that are the same for every player, generated from the date rather than fetched from anywhere.</p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Daily challenge</h3>
+        <p>One board a day that never appears in the catalogue — a compact hazard field, a shaped maze or a long expedition — with an objective attached. Finish it to keep your streak alive.</p>
+      </article>
+      <article class="card">
+        <h3>Weekly set</h3>
+        <p>Seven boards every Monday, ramping from a warm-up to a grand finale. Clear all seven before the week turns and the set pays a bonus.</p>
+      </article>
+      <article class="card">
+        <h3>Bumper Frenzy</h3>
+        <p>A twenty-second break between levels. Fling the ball into a field of bumpers and keep it alive: every hit climbs the multiplier, and sitting still bleeds it away.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Race someone</h2>
+      <p>Two balls, one board, first into the hole.</p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>A friend in the same room</h3>
+        <p>Two phones connect straight to each other over Wi-Fi or Bluetooth. No server, no account, no internet — your opponent shows up as a translucent ghost rolling the same board you are.</p>
+        <ul>
+          <li>Either player picks any level of any kind</li>
+          <li>Finishing beats running out of lives; stars break a tie</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Or the house</h3>
+        <p>No second phone needed. The built-in rival plans a real route through the board, takes the stars, occasionally slips, and paces itself against your own best time.</p>
+        <ul>
+          <li><b>Rookie</b> ambles and fumbles often</li>
+          <li><b>Rival</b> keeps you honest</li>
+          <li><b>Champion</b> beelines for the hole — expect to lose</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Make it yours</h2>
+      <p>Earn it by playing. Nothing here is behind a paywall.</p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>Balls that play differently</h3>
+        <p>Twenty-one of them. Twelve are pure finishes, from silver to solar. The other nine change how the ball behaves: a football holds its line, a basketball springs off walls, a beach ball floats over the first hole it would fall into, a magnet pulls stars in from further away.</p>
+      </article>
+      <article class="card">
+        <h3>Boards, angles and difficulty</h3>
+        <ul>
+          <li>Four board finishes: Classic, Workshop, Neon and Frosted Glass</li>
+          <li>Play flat overhead or in full 3D perspective — same physics, your choice</li>
+          <li>Hard mode: one life, a countdown, and a flame badge on the tile</li>
+          <li>Race the ghost of your own best run on any level</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>It stays on your phone</h2>
+      <p>No account to make, no server to talk to, nothing to sync. Your stars, coins and streaks live on your device, and the whole game works in aeroplane mode. The one exception is advertising, which is explained in full in the privacy policy.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="links">
+      <a href="privacy.html">Privacy policy</a>
+      <a href="terms.html">Terms of use</a>
+      <a href="mailto:pranavabipranav@gmail.com">pranavabipranav@gmail.com</a>
+    </div>
+    <p>Tilt Ball · published by P R Abinayaa · for iPhone and Android</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var board = document.getElementById("board");
+    var ball  = document.getElementById("ball");
+    var hole  = document.getElementById("hole");
+    var hint  = document.getElementById("hint");
+    var stars = [document.getElementById("s0"), document.getElementById("s1"), document.getElementById("s2")];
+    if (!board || !ball) return;
+
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var MIN = 9, MAX = 91;                 // percent, keeps the ball inside the walls
+    var pos = { x: 16, y: 84 }, vel = { x: 0, y: 0 }, tilt = { x: 0, y: 0 };
+    var taken = [false, false, false], sunk = false, engaged = false;
+
+    if (reduced) {
+      // Show the finished state instead of animating: every star taken, hole open.
+      stars.forEach(function (s) { s.classList.add("taken"); });
+      hole.classList.add("open");
+      hint.textContent = "Collect all three stars and the hole opens.";
+      return;
+    }
+
+    function pct(e) {
+      var r = board.getBoundingClientRect();
+      var p = e.touches ? e.touches[0] : e;
+      return { x: ((p.clientX - r.left) / r.width) * 100, y: ((p.clientY - r.top) / r.height) * 100 };
+    }
+    function aim(e) {
+      var p = pct(e);
+      tilt.x = Math.max(-1, Math.min(1, (p.x - 50) / 50));
+      tilt.y = Math.max(-1, Math.min(1, (p.y - 50) / 50));
+      if (!engaged) { engaged = true; hint.textContent = "Take all three stars — the hole will not open until you do."; }
+    }
+    board.addEventListener("pointermove", aim);
+    board.addEventListener("pointerdown", aim);
+    board.addEventListener("pointerleave", function () { tilt.x = 0; tilt.y = 0; });
+
+    function reset() {
+      pos = { x: 16, y: 84 }; vel = { x: 0, y: 0 };
+      taken = [false, false, false]; sunk = false;
+      stars.forEach(function (s) { s.classList.remove("taken"); });
+      hole.classList.remove("open");
+      ball.classList.remove("sunk");
+    }
+
+    function near(a, bx, by, d) {
+      return Math.hypot(a.x - bx, a.y - by) < d;
+    }
+
+    function frame() {
+      board.style.transform = "rotateX(" + (-tilt.y * 7) + "deg) rotateY(" + (tilt.x * 7) + "deg)";
+
+      if (!sunk) {
+        vel.x = (vel.x + tilt.x * 0.22) * 0.94;
+        vel.y = (vel.y + tilt.y * 0.22) * 0.94;
+        pos.x += vel.x; pos.y += vel.y;
+        if (pos.x < MIN) { pos.x = MIN; vel.x *= -0.45; }
+        if (pos.x > MAX) { pos.x = MAX; vel.x *= -0.45; }
+        if (pos.y < MIN) { pos.y = MIN; vel.y *= -0.45; }
+        if (pos.y > MAX) { pos.y = MAX; vel.y *= -0.45; }
+
+        stars.forEach(function (s, i) {
+          if (taken[i]) return;
+          var sx = parseFloat(s.style.left), sy = parseFloat(s.style.top);
+          if (near(pos, sx, sy, 8)) { taken[i] = true; s.classList.add("taken"); }
+        });
+
+        var all = taken[0] && taken[1] && taken[2];
+        if (all) hole.classList.add("open");
+
+        if (all && near(pos, 84, 16, 7)) {
+          sunk = true;
+          ball.classList.add("sunk");
+          hint.textContent = "That is the whole game.";
+          setTimeout(function () { reset(); hint.textContent = "Again?"; }, 1600);
+        }
+      }
+
+      ball.style.left = pos.x + "%";
+      ball.style.top  = pos.y + "%";
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
+</body>
+</html>
